@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.constraint.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/rv"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <!--<com.github.florent37.diagonallayout.DiagonalLayout-->
+        <!--android:id="@+id/diagonalLayout2"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:layout_marginTop="115dp"-->
+        <!--android:elevation="10dp"-->
+        <!--android:padding="0dp"-->
+        <!--app:diagonal_angle="13"-->
+        <!--app:diagonal_direction="right"-->
+        <!--app:diagonal_position="top"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/diagonalLayout">-->
+
+
+        <!--<ImageView-->
+            <!--android:id="@+id/img2"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:contentDescription="@string/bg_menu"-->
+            <!--app:srcCompat="@color/colorPrimaryDark" />-->
+
+    <!--</com.github.florent37.diagonallayout.DiagonalLayout>-->
+
+    <!--<com.github.florent37.diagonallayout.DiagonalLayout-->
+        <!--android:id="@+id/diagonalLayout"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="200dp"-->
+        <!--android:elevation="0dp"-->
+        <!--android:padding="0dp"-->
+        <!--app:diagonal_angle="13"-->
+        <!--app:diagonal_direction="left"-->
+        <!--app:diagonal_position="bottom"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintHorizontal_bias="0.0"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toTopOf="parent">-->
+
+
+        <!--<ImageView-->
+            <!--android:id="@+id/img1"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:contentDescription="@string/bg_menu"-->
+            <!--app:srcCompat="@color/colorPrimary" />-->
+
+    <!--</com.github.florent37.diagonallayout.DiagonalLayout>-->
+
+    <!--<com.github.florent37.diagonallayout.DiagonalLayout-->
+        <!--android:id="@+id/diagonalLayout3"-->
+        <!--android:layout_width="0dp"-->
+        <!--android:layout_height="250dp"-->
+        <!--android:elevation="10dp"-->
+        <!--android:padding="0dp"-->
+        <!--android:visibility="invisible"-->
+        <!--app:diagonal_angle="13"-->
+        <!--app:diagonal_direction="right"-->
+        <!--app:diagonal_position="bottom"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/diagonalLayout">-->
+
+        <!--<ImageView-->
+            <!--android:id="@+id/img3"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:contentDescription="@string/bg_menu"-->
+            <!--app:srcCompat="@color/colorPrimaryDark" />-->
+
+    <!--</com.github.florent37.diagonallayout.DiagonalLayout>-->
+
+    <!--<com.github.florent37.diagonallayout.DiagonalLayout-->
+        <!--android:id="@+id/diagonalLayout4"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_height="0dp"-->
+        <!--android:elevation="0dp"-->
+        <!--android:padding="0dp"-->
+        <!--app:diagonal_angle="13"-->
+        <!--app:diagonal_direction="left"-->
+        <!--app:diagonal_position="top"-->
+        <!--app:layout_constraintBottom_toBottomOf="parent"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="parent"-->
+        <!--app:layout_constraintTop_toBottomOf="@+id/diagonalLayout2">-->
+
+
+        <!--<ImageView-->
+            <!--android:id="@+id/img4"-->
+            <!--android:layout_width="match_parent"-->
+            <!--android:layout_height="match_parent"-->
+            <!--android:contentDescription="@string/bg_menu"-->
+            <!--app:srcCompat="@color/colorPrimary" />-->
+
+    <!--</com.github.florent37.diagonallayout.DiagonalLayout>-->
+
+    <!--<TextView-->
+        <!--android:id="@+id/textView2"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginEnd="8dp"-->
+        <!--android:layout_marginStart="8dp"-->
+        <!--android:layout_marginTop="8dp"-->
+        <!--android:fontFamily="sans-serif"-->
+        <!--android:text="Diarias"-->
+        <!--android:textSize="24sp"-->
+        <!--app:layout_constraintEnd_toEndOf="parent"-->
+        <!--app:layout_constraintStart_toStartOf="@+id/diagonalLayout"-->
+        <!--app:layout_constraintTop_toTopOf="@+id/diagonalLayout" />-->
+</android.support.constraint.ConstraintLayout>
