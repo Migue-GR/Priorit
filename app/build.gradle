@@ -29,12 +29,20 @@ dependencies {
      * Recyclerview
      */
     implementation 'com.android.support:recyclerview-v7:28.0.0'
+
     /**
      * Cardview
      */
     implementation 'com.android.support:cardview-v7:28.0.0'
+
     /**
      * DiagonalLayout
      */
     implementation 'com.github.florent37:diagonallayout:1.0.9'
+
+    /**
+     * ROOM
+     */
+    implementation 'android.arch.persistence.room:runtime:1.1.1'
+    annotationProcessor 'android.arch.persistence.room:compiler:1.1.1'
 }
