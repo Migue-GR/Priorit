@@ -7,38 +7,59 @@ import android.os.AsyncTask;
 import java.util.List;
 
 import pizziirreverent.priorit.ROOM.DAOs.DaoDaily;
-import pizziirreverent.priorit.ROOM.Database.Priorities;
-import pizziirreverent.priorit.ROOM.Entities.DailyPriorities;
+import pizziirreverent.priorit.ROOM.Database.PrioritDatabase;
+import pizziirreverent.priorit.ROOM.Entities.DailyPrioritiesEntity;
 
 public class PrioritiesRepository {
+    /*
+     * We instanced the DAO
+     */
     private DaoDaily daoDaily;
-    private LiveData<List<DailyPriorities>> allDailyPriorities;
+    /*
+     * We instanced the LiveData list of all entities
+     */
+    private LiveData<List<DailyPrioritiesEntity>> allDailyPriorities;
 
     public PrioritiesRepository(Application application) {
-        Priorities db = Priorities.getDatabase(application);
+        PrioritDatabase db = PrioritDatabase.getDatabase(application);
         daoDaily = db.daoDaily();
         allDailyPriorities = daoDaily.getAllDailyPriorities();
     }
 
-    public LiveData<List<DailyPriorities>> getAllDailyPriorities(){
+    /*
+     * We returns the list of daily priorities from LiveData
+     */
+    public LiveData<List<DailyPrioritiesEntity>> getAllDailyPriorities(){
         return allDailyPriorities;
     }
 
-    public void insertOnlySinglePriority (DailyPriorities dailyPriority) {
+    /*
+     * Call an AsyncTask to insert a priority on database
+     */
+    public void insertDailyPriority (DailyPrioritiesEntity dailyPriority) {
         new insertAsyncTask(daoDaily).execute(dailyPriority);
     }
 
-    private static class insertAsyncTask extends AsyncTask<DailyPriorities, Void, Void> {
+    /*
+     * AsyncTask to insert a priority
+     */
+    private static class insertAsyncTask extends AsyncTask<DailyPrioritiesEntity, Void, Void> {
 
-        private DaoDaily mAsyncTaskDao;
+        private DaoDaily dao;
 
+        /*
+         * We initialize the DAO
+         */
         insertAsyncTask(DaoDaily dao) {
-            mAsyncTaskDao = dao;
+            this.dao = dao;
         }
 
+        /*
+         * We insert a daily priority on background
+         */
         @Override
-        protected Void doInBackground(DailyPriorities... dailyPriorities) {
-            mAsyncTaskDao.insertOnlySinglePriority(dailyPriorities[0]);
+        protected Void doInBackground(DailyPrioritiesEntity... dailyPriorityEntities) {
+            dao.insertDailyPriority(dailyPriorityEntities[0]);
             return null;
         }
     }

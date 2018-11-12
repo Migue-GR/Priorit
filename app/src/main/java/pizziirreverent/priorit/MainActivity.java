@@ -1,7 +1,6 @@
 package pizziirreverent.priorit;
 
 import android.arch.lifecycle.Observer;
-import android.arch.lifecycle.ViewModelProvider;
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.support.annotation.Nullable;
@@ -14,57 +13,89 @@ import android.widget.Toast;
 
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import pizziirreverent.priorit.Adapters.PrioritiesListAdapter;
-import pizziirreverent.priorit.ROOM.Entities.DailyPriorities;
+import pizziirreverent.priorit.ROOM.Entities.DailyPrioritiesEntity;
 import pizziirreverent.priorit.ViewModels.DailyViewModel;
 
 public class MainActivity extends AppCompatActivity {
+    /*
+     * UI OBJECTS
+     */
+    @BindView(R.id.recyclerview)
+    RecyclerView recyclerView;
 
+    /*
+     * FINAL VARS
+     */
     public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    private static final String TAG = "MainActivity";
+
+    /*
+     * ACTIVITY VARS/OBJECTS
+     */
     private DailyViewModel dailyViewModel;
+    private PrioritiesListAdapter adapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
 
-        RecyclerView recyclerView = findViewById(R.id.recyclerview);
-        final PrioritiesListAdapter adapter = new PrioritiesListAdapter(this);
+        /*
+         * Set the adapter for Recyclerview
+         */
+        adapter = new PrioritiesListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-
-
+        /*
+         * Set the ViewModel for this activity
+         */
         dailyViewModel = ViewModelProviders.of(this).get(DailyViewModel.class);
 
-        dailyViewModel.getAllDailyPriorities().observe(this, new Observer<List<DailyPriorities>>() {
+        /*
+         * Subscribe the "getAllDailyPriorities()" method to "List<DailyPrioritiesEntity>"
+         */
+        dailyViewModel.getAllDailyPriorities().observe(this, new Observer<List<DailyPrioritiesEntity>>() {
             @Override
-            public void onChanged(@Nullable final List<DailyPriorities> words) {
-                // Update the cached copy of the words in the adapter.
+            public void onChanged(@Nullable final List<DailyPrioritiesEntity> words) {
+                /*
+                 * Update the Recyclerview when the List of Daily PrioritDatabase change
+                 */
                 adapter.setDailyPriorities(words);
             }
         });
-
-
     }
+
 
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        /*
+         * If the last activity was the NewDailyPriority, we insert the priority on the database
+         * Else we shows a Toast
+         */
         if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
-            DailyPriorities dailyPriorities = new DailyPriorities(data.getStringExtra(NewDailyPriority.EXTRA_REPLY));
-            dailyViewModel.insert(dailyPriorities);
+            DailyPrioritiesEntity dailyPriority = new DailyPrioritiesEntity();
+            dailyPriority.setPriorityDesc(data.getStringExtra(NewDailyPriority.EXTRA_REPLY));
+            dailyViewModel.insertDailyPriority(dailyPriority);
         } else {
             Toast.makeText(
                     getApplicationContext(),
-                    "vacio, no guardado",
+                    R.string.EmptyPriority,
                     Toast.LENGTH_LONG).show();
         }
     }
 
-    public void weas(View view) {
+    /*
+     * Go to the NewDailyPriority activity
+     */
+    public void newDailyPriority(View view) {
         Intent intent = new Intent(MainActivity.this, NewDailyPriority.class);
         startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
-//        startActivity(intent);
     }
 }

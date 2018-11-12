@@ -7,8 +7,8 @@ import android.support.annotation.NonNull;
 /*
  * We create the table for daily priorities
  */
-@Entity
-public class DailyPriorities {
+@Entity(tableName = "DailyPriorities")
+public class DailyPrioritiesEntity {
     /*
      * Every entity ned a primary key
      */
@@ -16,13 +16,15 @@ public class DailyPriorities {
     @PrimaryKey(autoGenerate = true)
     private int id_priority;
 
+    /*
+     * The description of the priority
+     */
     @NonNull
     private String priorityDesc;
 
-    public DailyPriorities(@NonNull String priorityDesc) {
-        this.priorityDesc = priorityDesc;
-    }
-
+    /*
+     * GETTERS AND SETTERS (id_priority)
+     */
     @NonNull
     public int getId_priority() {
         return id_priority;
@@ -32,11 +34,14 @@ public class DailyPriorities {
         this.id_priority = id_priority;
     }
 
+    /*
+     * GETTERS AND SETTERS (priorityDesc)
+     */
     public String getPriorityDesc() {
         return priorityDesc;
     }
 
-    public void setPriorityDesc(String priorityDesc) {
+    public void setPriorityDesc(@NonNull String priorityDesc) {
         this.priorityDesc = priorityDesc;
     }
 }

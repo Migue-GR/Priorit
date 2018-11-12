@@ -5,19 +5,19 @@
     android:layout_height="match_parent">
 
     <EditText
-        android:id="@+id/edit_word"
+        android:id="@+id/txt_priority"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:fontFamily="sans-serif-light"
-        android:hint="Escribe algo"
+        android:hint="@string/alt_new_priority"
         android:inputType="textAutoComplete"
         android:textSize="18sp" />
 
     <Button
-        android:id="@+id/button_save"
+        android:id="@+id/btn_save"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
-        android:text="guardar" />
+        android:text="@string/save" />
 
 </LinearLayout>

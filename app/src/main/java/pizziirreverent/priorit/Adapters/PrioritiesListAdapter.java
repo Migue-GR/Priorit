@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 import pizziirreverent.priorit.R;
-import pizziirreverent.priorit.ROOM.Entities.DailyPriorities;
+import pizziirreverent.priorit.ROOM.Entities.DailyPrioritiesEntity;
 
 public class PrioritiesListAdapter extends RecyclerView.Adapter<PrioritiesListAdapter.PrioritiesListViewHolder>{
 
@@ -25,7 +25,7 @@ public class PrioritiesListAdapter extends RecyclerView.Adapter<PrioritiesListAd
     }
 
     private final LayoutInflater mInflater;
-    private List<DailyPriorities> dailyPriority; // Cached copy of words
+    private List<DailyPrioritiesEntity> dailyPriority; // Cached copy of words
 
     public PrioritiesListAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
@@ -40,7 +40,7 @@ public class PrioritiesListAdapter extends RecyclerView.Adapter<PrioritiesListAd
     @Override
     public void onBindViewHolder(@NonNull PrioritiesListViewHolder holder, int position) {
         if (dailyPriority != null) {
-            DailyPriorities current = dailyPriority.get(position);
+            DailyPrioritiesEntity current = dailyPriority.get(position);
             holder.txtv_daily_priority.setText(current.getPriorityDesc());
         } else {
             // Covers the case of data not being ready yet.
@@ -48,8 +48,8 @@ public class PrioritiesListAdapter extends RecyclerView.Adapter<PrioritiesListAd
         }
     }
 
-    public void setDailyPriorities(List<DailyPriorities> dailyPriorities){
-        dailyPriority = dailyPriorities;
+    public void setDailyPriorities(List<DailyPrioritiesEntity> dailyPriorityEntities){
+        dailyPriority = dailyPriorityEntities;
         notifyDataSetChanged();
     }
 

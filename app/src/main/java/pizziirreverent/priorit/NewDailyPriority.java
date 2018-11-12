@@ -9,33 +9,59 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+import pizziirreverent.priorit.Adapters.PrioritiesListAdapter;
+import pizziirreverent.priorit.ViewModels.DailyViewModel;
+
 import static android.app.Activity.RESULT_CANCELED;
 import static android.app.Activity.RESULT_OK;
 
 public class NewDailyPriority extends AppCompatActivity{
     public static final String EXTRA_REPLY = "com.example.android.wordlistsql.REPLY";
 
-    private EditText mEditWordView;
+    /*
+     * UI OBJECTS
+     */
+    @BindView(R.id.txt_priority)
+    public EditText txt_priority;
+
+    /*
+     * FINAL VARS
+     */
+    private static final String TAG = "NewDailyPriority";
+
+    /*
+     * ACTIVITY VARS/OBJECTS
+     */
+    private String priority;
+    private Intent saveIntent;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.new_daily_priority);
-        mEditWordView = findViewById(R.id.edit_word);
+        ButterKnife.bind(this);
+    }
 
-        final Button button = findViewById(R.id.button_save);
-        button.setOnClickListener(new View.OnClickListener() {
-            public void onClick(View view) {
-                Intent replyIntent = new Intent();
-                if (TextUtils.isEmpty(mEditWordView.getText())) {
-                    setResult(RESULT_CANCELED, replyIntent);
-                } else {
-                    String word = mEditWordView.getText().toString();
-                    replyIntent.putExtra(EXTRA_REPLY, word);
-                    setResult(RESULT_OK, replyIntent);
-                }
-                finish();
-            }
-        });
+    @OnClick(R.id.btn_save)
+    public void savePriority(){
+        saveIntent = new Intent();
+
+        /*
+         * If there is not text, we set the result as CANCELED
+         * Else we save the text and set the result as OK.
+         */
+        if (TextUtils.isEmpty(txt_priority.getText())) {
+            setResult(RESULT_CANCELED, saveIntent);
+
+        }else{
+            priority = txt_priority.getText().toString();
+            saveIntent.putExtra(EXTRA_REPLY, priority);
+            setResult(RESULT_OK, saveIntent);
+        }
+
+        finish();
     }
 }

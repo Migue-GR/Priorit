@@ -9,7 +9,7 @@ import android.arch.persistence.room.Update;
 
 import java.util.List;
 
-import pizziirreverent.priorit.ROOM.Entities.DailyPriorities;
+import pizziirreverent.priorit.ROOM.Entities.DailyPrioritiesEntity;
 
 /*
  * We define the DAO (Data Access Object) for daily priorities
@@ -17,23 +17,17 @@ import pizziirreverent.priorit.ROOM.Entities.DailyPriorities;
 @Dao
 public interface DaoDaily {
     @Insert
-    void insertOnlySinglePriority (DailyPriorities dailyPriority);
-
-    @Insert
-    void insertMultiplePriorities (List<DailyPriorities> dailyPriorities);
-
-    /*@Query("SELECT * FROM DailyPriorities WHERE priorityId = :priorityId")
-    String fetchOneMoviesbyMovieId (int priorityId);*/
+    void insertDailyPriority (DailyPrioritiesEntity dailyPriority);
 
     @Query("SELECT * FROM DailyPriorities ORDER BY priorityDesc ASC")
-    LiveData <List<DailyPriorities>> getAllDailyPriorities();
+    LiveData <List<DailyPrioritiesEntity>> getAllDailyPriorities();
 
     @Query("DELETE FROM DailyPriorities")
     void deleteAllDailyPriorities();
 
     @Update
-    void updatePriorit (DailyPriorities dailyPrioritie);
+    void updatePriorit (DailyPrioritiesEntity dailyPrioritie);
 
     @Delete
-    void deletePriorit (DailyPriorities dailyPrioritie);
+    void deletePriorit (DailyPrioritiesEntity dailyPrioritie);
 }

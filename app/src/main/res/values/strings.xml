@@ -1,4 +1,7 @@
 <resources>
     <string name="app_name">Priorit</string>
     <string name="bg_menu">backgroud</string>
+    <string name="EmptyPriority">Texto vacío, no guardado</string>
+    <string name="alt_new_priority">Prioridad...</string>
+    <string name="save">Guardar</string>
 </resources>

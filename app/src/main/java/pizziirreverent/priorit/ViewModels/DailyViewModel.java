@@ -7,13 +7,20 @@ import android.support.annotation.NonNull;
 
 import java.util.List;
 
-import pizziirreverent.priorit.ROOM.Entities.DailyPriorities;
+import pizziirreverent.priorit.ROOM.Entities.DailyPrioritiesEntity;
 import pizziirreverent.priorit.Repository.PrioritiesRepository;
 
 public class DailyViewModel extends AndroidViewModel{
 
+    /*
+     * We instanced the Repository
+     */
     private PrioritiesRepository repository;
-    private LiveData<List<DailyPriorities>> allDailyPriorities;
+
+    /*
+     * We instanced the LiveData list of all entities
+     */
+    private LiveData<List<DailyPrioritiesEntity>> allDailyPriorities;
 
     public DailyViewModel(@NonNull Application application){
         super(application);
@@ -21,11 +28,17 @@ public class DailyViewModel extends AndroidViewModel{
         allDailyPriorities = repository.getAllDailyPriorities();
     }
 
-    public LiveData<List<DailyPriorities>> getAllDailyPriorities(){
+    /*
+     * We returns the list of daily priorities from LiveData
+     */
+    public LiveData<List<DailyPrioritiesEntity>> getAllDailyPriorities(){
         return allDailyPriorities;
     }
 
-    public void insert(DailyPriorities dailyPriority){
-        repository.insertOnlySinglePriority(dailyPriority);
+    /*
+     * We use the repository to insert a daily priority
+     */
+    public void insertDailyPriority(DailyPrioritiesEntity dailyPriority){
+        repository.insertDailyPriority(dailyPriority);
     }
 }
