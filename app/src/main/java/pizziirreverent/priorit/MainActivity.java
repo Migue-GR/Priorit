@@ -1,54 +1,70 @@
 package pizziirreverent.priorit;
 
-import android.arch.persistence.room.Room;
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProvider;
+import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.util.Log;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import android.widget.Toast;
 
-import pizziirreverent.priorit.ROOM.Database.Priorities;
+import java.util.List;
+
+import pizziirreverent.priorit.Adapters.PrioritiesListAdapter;
 import pizziirreverent.priorit.ROOM.Entities.DailyPriorities;
+import pizziirreverent.priorit.ViewModels.DailyViewModel;
 
 public class MainActivity extends AppCompatActivity {
 
+    public static final int NEW_WORD_ACTIVITY_REQUEST_CODE = 1;
+    private DailyViewModel dailyViewModel;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.AppTheme);
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        RecyclerView recyclerView = findViewById(R.id.recyclerview);
+        final PrioritiesListAdapter adapter = new PrioritiesListAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
 
-//        final Animation animation = new AnimationUtils().loadAnimation(this, R.anim.scale_item_menu_left);
-//        final Animation animation1 = new AnimationUtils().loadAnimation(this, R.anim.scale_item_menu_right);
 
-        final String PRIORITIES = "Priorities";
-        final Priorities priorities;
-        priorities = Room.databaseBuilder(getApplicationContext(),
-                Priorities.class, PRIORITIES)
-                .fallbackToDestructiveMigration()
-                .build();
+        dailyViewModel = ViewModelProviders.of(this).get(DailyViewModel.class);
 
-
-        new Thread(new Runnable() {
+        dailyViewModel.getAllDailyPriorities().observe(this, new Observer<List<DailyPriorities>>() {
             @Override
-            public void run() {
-//                DailyPriorities dailyPriorities =new DailyPriorities();
-//                dailyPriorities.setPriorityId("1");
-//                dailyPriorities.setPriorityDesc("Will be better");
-//                priorities.daoDaily().insertOnlySinglePrioritie(dailyPriorities);
-//                priorities.daoAccess() . insertOnlySingleMovie (movie);
-//                dailyPriorities.getPriorityId();
-                try{
-                    String awa = String.valueOf(priorities.daoDaily().fetchOneMoviesbyMovieId(1));
-                    Log.i("Prioridades",""+awa);
-                }catch(Exception e){
-                    Log.e("ERROR","" + e.getMessage());
-                }
-//                priorities.daoDaily().insertOnlySinglePrioritie(dailyPriorities);
+            public void onChanged(@Nullable final List<DailyPriorities> words) {
+                // Update the cached copy of the words in the adapter.
+                adapter.setDailyPriorities(words);
             }
-        }) .start();
+        });
+
+
+    }
+
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == NEW_WORD_ACTIVITY_REQUEST_CODE && resultCode == RESULT_OK) {
+            DailyPriorities dailyPriorities = new DailyPriorities(data.getStringExtra(NewDailyPriority.EXTRA_REPLY));
+            dailyViewModel.insert(dailyPriorities);
+        } else {
+            Toast.makeText(
+                    getApplicationContext(),
+                    "vacio, no guardado",
+                    Toast.LENGTH_LONG).show();
+        }
+    }
+
+    public void weas(View view) {
+        Intent intent = new Intent(MainActivity.this, NewDailyPriority.class);
+        startActivityForResult(intent, NEW_WORD_ACTIVITY_REQUEST_CODE);
+//        startActivity(intent);
     }
 }
