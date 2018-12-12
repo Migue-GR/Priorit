@@ -2,10 +2,12 @@ package pizziirreverent.priorit.Adapters;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 
@@ -33,14 +35,38 @@ public class PrioritiesAdapter extends RecyclerView.Adapter<PrioritiesAdapter.Pr
     }
 
     @Override
-    public void onBindViewHolder(PrioritiesViewHolder holder, int position) {
+    public void onBindViewHolder(PrioritiesViewHolder holder, final int position) {
         Priority priority = data.get(position);
-        holder.priorityTitle.setText(priority.getTitle());
+        final String   title    = priority.getTitle();
+        holder.priorityTitle.setText(title);
         holder.cardView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(activity, MainActivity.class);
-                activity.startActivity(intent);
+                Log.d("PrioritiesAdapter", "" + title + " " + position);
+                /*
+                 * 0 => Today
+                 * 1 => Week
+                 * 2 => Month
+                 * 3 => Year
+                 */
+                switch (position){
+                    case 0:
+                        Intent intent = new Intent(activity, MainActivity.class);
+                        activity.startActivity(intent);
+                        break;
+                    case 1:
+                        Toast.makeText(activity, "Week", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 2:
+                        Toast.makeText(activity, "Month", Toast.LENGTH_SHORT).show();
+                        break;
+                    case 3:
+                        Toast.makeText(activity, "Year", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        Toast.makeText(activity, "Something went wrong", Toast.LENGTH_SHORT).show();
+                        break;
+                }
             }
         });
     }
