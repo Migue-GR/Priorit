@@ -19,7 +19,7 @@ public interface DaoDaily {
     @Insert
     void insertDailyPriority (DailyPrioritiesEntity dailyPriority);
 
-    @Query("SELECT * FROM DailyPriorities ORDER BY priorityDesc ASC")
+    @Query("SELECT * FROM DailyPriorities ORDER BY id_priority ASC")
     LiveData <List<DailyPrioritiesEntity>> getAllDailyPriorities();
 
     @Query("DELETE FROM DailyPriorities")

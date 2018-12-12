@@ -1,5 +1,6 @@
 package pizziirreverent.priorit;
 
+import androidx.annotation.NonNull;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProviders;
 import android.content.Intent;
@@ -10,6 +11,8 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import android.view.View;
 import android.widget.Toast;
+
+import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.List;
 
@@ -25,6 +28,8 @@ public class MainActivity extends AppCompatActivity {
      */
     @BindView(R.id.recyclerview)
     RecyclerView recyclerView;
+    @BindView(R.id.floatingActionButton1)
+    FloatingActionButton floatingActionButton;
 
     /*
      * FINAL VARS
@@ -51,6 +56,21 @@ public class MainActivity extends AppCompatActivity {
         adapter = new PrioritiesListAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        /*
+         * Hide the FAB when scroll the RecyclerView
+         */
+        recyclerView.addOnScrollListener(new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrolled(@NonNull RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                if (dy > 0 && floatingActionButton.getVisibility() == View.VISIBLE) {
+                    floatingActionButton.hide();
+                } else if (dy < 0 && floatingActionButton.getVisibility() != View.VISIBLE) {
+                    floatingActionButton.show();
+                }
+            }
+        });
 
         /*
          * Set the ViewModel for this activity

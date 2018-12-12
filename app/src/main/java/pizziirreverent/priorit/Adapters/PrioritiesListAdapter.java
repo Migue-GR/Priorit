@@ -20,7 +20,7 @@ public class PrioritiesListAdapter extends RecyclerView.Adapter<PrioritiesListAd
 
         private PrioritiesListViewHolder(View itemView) {
             super(itemView);
-            txtv_daily_priority = itemView.findViewById(R.id.textView);
+            txtv_daily_priority = itemView.findViewById(R.id.txtv_description_list_priority);
         }
     }
 
@@ -33,7 +33,7 @@ public class PrioritiesListAdapter extends RecyclerView.Adapter<PrioritiesListAd
 
     @Override
     public PrioritiesListViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
+        View itemView = mInflater.inflate(R.layout.list_priority_row, parent, false);
         return new PrioritiesListViewHolder(itemView);
     }
 
